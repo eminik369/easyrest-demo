@@ -4,17 +4,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChefHat, ScanLine, ClipboardList, BarChart3, MapPin, MessageCircle,
   Briefcase, LayoutDashboard, Menu, X, HelpCircle,
+  Users, Monitor, Bot, FileDown,
 } from 'lucide-react';
 import { useTutorial } from '../Tutorial';
 
-const nav = [
+type NavItem = {
+  to: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  dev?: boolean;
+  nuovo?: boolean;
+};
+
+const nav: NavItem[] = [
   { to: '/overview', label: 'Panoramica', icon: LayoutDashboard },
   { to: '/recipes', label: 'Ricette', icon: ChefHat },
   { to: '/scanner', label: 'Scanner e Magazzino', icon: ScanLine },
+  { to: '/menu-importer', label: 'Importazione Menu', icon: FileDown, nuovo: true },
   { to: '/preparations', label: 'Preparazioni', icon: ClipboardList },
+  { to: '/kds', label: 'KDS Cucina', icon: Monitor, nuovo: true },
+  { to: '/kitchen-assistant', label: 'Assistente Cucina', icon: Bot, nuovo: true },
+  { to: '/crm', label: 'CRM e Rating', icon: Users, nuovo: true },
   { to: '/analytics', label: 'Analisi', icon: BarChart3 },
   { to: '/floor-plan', label: 'Gestione Sala', icon: MapPin, dev: true },
-  { to: '/chatbot', label: 'Chatbot', icon: MessageCircle },
+  { to: '/chatbot', label: 'Chatbot Sala', icon: MessageCircle },
   { to: '/business-case', label: 'Business Case', icon: Briefcase },
 ];
 
@@ -91,6 +104,9 @@ export function Shell() {
               {item.dev && (
                 <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded border border-dashed border-gray-600 text-gray-500">DEV</span>
               )}
+              {item.nuovo && (
+                <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full bg-accent-gold/20 text-accent-gold font-semibold tracking-wider">NUOVO</span>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -159,6 +175,12 @@ export function Shell() {
                   >
                     <item.icon className="w-[18px] h-[18px]" />
                     <span>{item.label}</span>
+                    {item.dev && (
+                      <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded border border-dashed border-gray-600 text-gray-500">DEV</span>
+                    )}
+                    {item.nuovo && (
+                      <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full bg-accent-gold/20 text-accent-gold font-semibold tracking-wider">NUOVO</span>
+                    )}
                   </NavLink>
                 ))}
               </nav>

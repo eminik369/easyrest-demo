@@ -1,0 +1,1 @@
+export { KDSPage } from './KDSPage';

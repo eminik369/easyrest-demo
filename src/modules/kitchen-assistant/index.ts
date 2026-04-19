@@ -1,0 +1,1 @@
+export { KitchenAssistantPage } from './KitchenAssistantPage';

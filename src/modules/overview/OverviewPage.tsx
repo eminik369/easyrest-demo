@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import {
   ChefHat, ScanLine, ClipboardList, BarChart3, MapPin, MessageCircle,
   AlertTriangle, TrendingUp, Calendar, ArrowRight,
+  Users, Monitor, Bot, FileDown,
 } from 'lucide-react';
 import { Card, Badge, CountUp } from '../../components/ui';
 import { PageHeader } from '../../components/layout';
@@ -19,13 +20,27 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] } },
 };
 
-const moduleCards = [
+type ModuleCard = {
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  desc: string;
+  color: string;
+  dev?: boolean;
+  nuovo?: boolean;
+};
+
+const moduleCards: ModuleCard[] = [
   { to: '/recipes', icon: ChefHat, label: 'Ricette e Costi', desc: 'Gestisci il ricettario completo, calcola costi per porzione e margini operativi in tempo reale', color: 'bg-amber-50 text-amber-600' },
   { to: '/scanner', icon: ScanLine, label: 'Scanner e Magazzino', desc: 'Scansiona etichette con lo smartphone, monitora scadenze, inventario e conformita HACCP', color: 'bg-blue-50 text-blue-600' },
+  { to: '/menu-importer', icon: FileDown, label: 'Importazione Menu', desc: 'Incolla un URL Pienissimo, Leggimenu o Tomato: il menu e pronto in EasyRest in 30 secondi', color: 'bg-teal-50 text-teal-600', nuovo: true },
   { to: '/preparations', icon: ClipboardList, label: 'Preparazioni', desc: 'Pianifica le preparazioni giornaliere in base a prenotazioni e consumo storico', color: 'bg-purple-50 text-purple-600' },
+  { to: '/kds', icon: Monitor, label: 'KDS Cucina', desc: 'Kitchen Display System con pop-up bloccante sulle comande in ritardo', color: 'bg-slate-100 text-slate-700', nuovo: true },
+  { to: '/kitchen-assistant', icon: Bot, label: 'Assistente Cucina AI', desc: "Chatbot per la brigata: composizione, dosi scalabili, plating e tempi di cottura", color: 'bg-orange-50 text-orange-600', nuovo: true },
+  { to: '/crm', icon: Users, label: 'CRM e Rating', desc: 'Rating bidirezionale del cliente: puntualita, affidabilita, comportamento. Premi Top Customer mensili', color: 'bg-yellow-50 text-yellow-700', nuovo: true },
   { to: '/analytics', icon: BarChart3, label: 'Analisi e Previsioni', desc: 'Dashboard con trend di vendita, previsioni dei consumi e collegamento al POS', color: 'bg-emerald-50 text-emerald-600' },
   { to: '/floor-plan', icon: MapPin, label: 'Gestione Sala', desc: 'Mappa interattiva dei tavoli con prenotazioni in tempo reale', color: 'bg-rose-50 text-rose-600', dev: true },
-  { to: '/chatbot', icon: MessageCircle, label: 'Chatbot AI', desc: 'Assistente AI basato su GPT-4o per informazioni allergeni, menu e prenotazioni', color: 'bg-cyan-50 text-cyan-600' },
+  { to: '/chatbot', icon: MessageCircle, label: 'Chatbot Sala', desc: 'Assistente AI basato su GPT-4o per informazioni allergeni, menu e prenotazioni', color: 'bg-cyan-50 text-cyan-600' },
 ];
 
 const tutorialSteps = [
@@ -124,6 +139,7 @@ export function OverviewPage() {
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-base font-semibold text-gray-900">{mod.label}</h3>
                       {mod.dev && <Badge variant="development" size="sm">DEV</Badge>}
+                      {mod.nuovo && <Badge variant="gold" size="sm">NUOVO</Badge>}
                     </div>
                     <p className="text-sm text-gray-500 leading-relaxed">{mod.desc}</p>
                   </div>
